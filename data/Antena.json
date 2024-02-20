@@ -1,0 +1,128 @@
+{
+    "controlador.listas.ListaEnlazada": {
+        "head": {
+            "data": {
+                "@class": "modelo.Antena",
+                "id": 1,
+                "alias": "Antena EERSSA",
+                "foto": "df6e0a1b-0195-4cc7-af27-0d692786abadjpg",
+                "latitud": -3.988510133828141,
+                "longitud": -79.26901217383768,
+                "frecuenciaMaxOperacion": 100000,
+                "frecuenciaMinOperacion": 10000
+            },
+            "next": {
+                "data": {
+                    "@class": "modelo.Antena",
+                    "id": 2,
+                    "alias": "Antenas del Villonaco",
+                    "foto": "23a2d2df-ca02-479c-b619-963d5f8a8cf8jpg",
+                    "latitud": -4.031302566722161,
+                    "longitud": -79.24413565246722,
+                    "frecuenciaMaxOperacion": 1.0E12,
+                    "frecuenciaMinOperacion": 1.0E8
+                },
+                "next": {
+                    "data": {
+                        "@class": "modelo.Antena",
+                        "id": 3,
+                        "alias": "Antena CNT",
+                        "foto": "618a3db2-b1a5-48b8-977f-0f937ee4d9ecjpg",
+                        "latitud": -3.965923139053335,
+                        "longitud": -79.2264453344924,
+                        "frecuenciaMaxOperacion": 1000000,
+                        "frecuenciaMinOperacion": 10000
+                    },
+                    "next": {
+                        "data": {
+                            "@class": "modelo.Antena",
+                            "id": 4,
+                            "alias": "AntenaCLARO",
+                            "foto": "5b57698c-aa40-44cf-beda-aabcf20436d5jpg",
+                            "latitud": -3.983904225349028,
+                            "longitud": -79.21133913362912,
+                            "frecuenciaMaxOperacion": 10000,
+                            "frecuenciaMinOperacion": 2000
+                        },
+                        "next": {
+                            "data": {
+                                "@class": "modelo.Antena",
+                                "id": 5,
+                                "alias": "Antena Jipiro",
+                                "foto": "4301108e-26ee-42c3-bb51-f25fe3661dafjpg",
+                                "latitud": -3.9718312535061706,
+                                "longitud": -79.2038718638842,
+                                "frecuenciaMaxOperacion": 19090,
+                                "frecuenciaMinOperacion": 9199
+                            },
+                            "next": {
+                                "data": {
+                                    "@class": "modelo.Antena",
+                                    "id": 6,
+                                    "alias": "Antena Centro",
+                                    "foto": "9132713a-9a03-4560-9579-fb3f4f1a7b96jpg",
+                                    "latitud": -3.9870722808351733,
+                                    "longitud": -79.21339907011048,
+                                    "frecuenciaMaxOperacion": 1901000,
+                                    "frecuenciaMinOperacion": 199998
+                                },
+                                "next": {
+                                    "data": {
+                                        "@class": "modelo.Antena",
+                                        "id": 7,
+                                        "alias": "Antena UNL",
+                                        "foto": "71bb189f-9ef6-48e0-99c0-bfa3a3627df9jpg",
+                                        "latitud": -4.037074560146147,
+                                        "longitud": -79.20824922890706,
+                                        "frecuenciaMaxOperacion": 1901909,
+                                        "frecuenciaMinOperacion": 19000
+                                    },
+                                    "next": {
+                                        "data": {
+                                            "@class": "modelo.Antena",
+                                            "id": 8,
+                                            "alias": "Antena Parque La Tebaida",
+                                            "foto": "261cb075-f18a-457f-b3b1-eb60960d13e2jpg",
+                                            "latitud": -4.019151236741871,
+                                            "longitud": -79.20327220273718,
+                                            "frecuenciaMaxOperacion": 153456,
+                                            "frecuenciaMinOperacion": 12456
+                                        },
+                                        "next": {
+                                            "data": {
+                                                "@class": "modelo.Antena",
+                                                "id": 9,
+                                                "alias": "Antena SurEste",
+                                                "foto": "1510db45-535a-456c-8102-fe203e777d6cjpg",
+                                                "latitud": -4.029339905520914,
+                                                "longitud": -79.18979678643025,
+                                                "frecuenciaMaxOperacion": 1.6437885E7,
+                                                "frecuenciaMinOperacion": 18270
+                                            },
+                                            "next": {
+                                                "data": {
+                                                    "@class": "modelo.Antena",
+                                                    "id": 10,
+                                                    "alias": "Antena 2 puentes",
+                                                    "foto": "13341cd7-1808-4483-92d3-344b95583f1bjpg",
+                                                    "latitud": -4.041112368164749,
+                                                    "longitud": -79.19722114074445,
+                                                    "frecuenciaMaxOperacion": 8.9243076E7,
+                                                    "frecuenciaMinOperacion": 675346
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "last": {
+            "@reference": "..\/head\/next\/next\/next\/next\/next\/next\/next\/next\/next"
+        },
+        "size": 10
+    }
+}

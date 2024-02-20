@@ -1,0 +1,53 @@
+var nodes = new vis.DataSet([
+	{ id: 1, label: " 1. Antena EERSSA" },
+	{ id: 2, label: " 2. Antenas del Villonaco" },
+	{ id: 3, label: " 3. Antena CNT" },
+	{ id: 4, label: " 4. AntenaCLARO" },
+	{ id: 5, label: " 5. Antena Jipiro" },
+	{ id: 6, label: " 6. Antena Centro" },
+	{ id: 7, label: " 7. Antena UNL" },
+	{ id: 8, label: " 8. Antena Parque La Tebaida" },
+	{ id: 9, label: " 9. Antena SurEste" },
+	{ id: 10, label: " 10. Antena 2 puentes" },
+]);
+var edges = new vis.DataSet([
+	{ from: 1, to: 9, label: "9.9" },
+	{ from: 1, to: 6, label: "6.18" },
+	{ from: 1, to: 4, label: "6.42" },
+	{ from: 1, to: 8, label: "8.06" },
+	{ from: 2, to: 9, label: "6.04" },
+	{ from: 2, to: 5, label: "7.99" },
+	{ from: 2, to: 3, label: "7.54" },
+	{ from: 2, to: 7, label: "4.04" },
+	{ from: 3, to: 2, label: "7.54" },
+	{ from: 3, to: 5, label: "2.59" },
+	{ from: 3, to: 4, label: "2.61" },
+	{ from: 3, to: 10, label: "8.98" },
+	{ from: 4, to: 5, label: "1.58" },
+	{ from: 4, to: 1, label: "6.42" },
+	{ from: 4, to: 3, label: "2.61" },
+	{ from: 4, to: 7, label: "5.93" },
+	{ from: 5, to: 4, label: "1.58" },
+	{ from: 5, to: 2, label: "7.99" },
+	{ from: 5, to: 3, label: "2.59" },
+	{ from: 6, to: 9, label: "5.39" },
+	{ from: 6, to: 1, label: "6.18" },
+	{ from: 7, to: 2, label: "4.04" },
+	{ from: 7, to: 4, label: "5.93" },
+	{ from: 7, to: 10, label: "1.3" },
+	{ from: 8, to: 1, label: "8.06" },
+	{ from: 8, to: 9, label: "1.88" },
+	{ from: 9, to: 2, label: "6.04" },
+	{ from: 9, to: 6, label: "5.39" },
+	{ from: 9, to: 1, label: "9.9" },
+	{ from: 9, to: 8, label: "1.88" },
+	{ from: 10, to: 3, label: "8.98" },
+	{ from: 10, to: 7, label: "1.3" },
+]);
+var container = document.getElementById("mynetwork");
+      var data = {
+        nodes: nodes,
+        edges: edges,
+      };
+      var options = {};
+      var network = new vis.Network(container, data, options);
