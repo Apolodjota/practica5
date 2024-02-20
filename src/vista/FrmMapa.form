@@ -145,7 +145,7 @@
                           <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                           <Component id="btnAdyacencia" min="-2" pref="116" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
-                          <Component id="btnCamino" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnDijkstra" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="btnFloyd" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
@@ -169,7 +169,7 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnAdyacencia" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btnFloyd" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCamino" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnDijkstra" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                       </Group>
@@ -199,12 +199,12 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAdyacenciaActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="org.edisoncor.gui.button.ButtonAction" name="btnCamino">
+                <Component class="org.edisoncor.gui.button.ButtonAction" name="btnDijkstra">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Dijkstra"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCaminoActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDijkstraActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="org.edisoncor.gui.button.ButtonAction" name="btnFloyd">

@@ -11,6 +11,7 @@ import controlador.util.Utilidades;
 import java.io.File;
 import java.util.HashMap;
 import modelo.Antena;
+import vista.tablas.ModeloTablaAdyacencia;
 
 /**
  *
@@ -113,53 +114,25 @@ public class GrafoEtiquetadoNoDirigido<E> extends GrafoEtiquetadoDirigido<E> {
         }
         return true;
     }
-
-    public HashMap<Integer, Integer> dijkstra(Integer origen) throws VacioException {
-        Integer n = nro_vertices();
-        Double[] distancias = new Double[n + 1];
-        HashMap<Integer, Integer> predecesores = new HashMap<>();
-        Boolean[] visitados = new Boolean[n + 1];
-
-        // Inicialización
-        for (int i = 1; i <= n; i++) {
-            distancias[i] = Double.MAX_VALUE;
-            visitados[i] = false;
-            predecesores.put(i, -1);
-        }
-        distancias[origen] = 0.0;
-
-        for (int i = 1; i <= n; i++) {
-            // Encuentra el vértice con la mínima distancia no visitado
-            Integer u = -1;
-            Double minDist = Double.MAX_VALUE;
-            for (int j = 1; j <= n; j++) {
-                if (!visitados[j] && distancias[j] < minDist) {
-                    minDist = distancias[j];
-                    u = j;
-                }
-            }
-
-            if (u == -1) {
-                break; // Si no hay tal vértice, termina el bucle
-            }
-            visitados[u] = true;
-
-            // Relajación
-            ListaEnlazada<Adyacencia> adyacentes = adyacentes(u);
-            for (int j = 0; j < adyacentes.getSize(); j++) {
-                Adyacencia ady = adyacentes.get(j);
-                Integer v = ady.getD();
-                Double peso = ady.getPeso();
-                if (distancias[u] + peso < distancias[v]) {
-                    distancias[v] = distancias[u] + peso;
-                    predecesores.put(v, u);
+    public void dijkstrac(Integer og) {
+        Integer[] ultimo;
+        Double[] distancia = new Double[nro_vertices()];
+        Boolean[] F;
+        Double[][] pesos = new Double[nro_vertices()][nro_vertices()];
+        for (int i = 1; i <= nro_vertices(); i++) {
+            for (int j = 1; j <= nro_vertices(); j++) {
+                if (i == j) {
+                    pesos[i][j] = 0.0;
+                } else {
+                    
+                    
+                    
                 }
             }
         }
-
-        // Aquí puedes convertir distancias y predecesores en la estructura que necesites devolver
-        return predecesores; // Este mapa contiene el vértice predecesor de cada vértice en el camino más corto desde el origen
+        
     }
+
 
     @Override
     public String toString() {

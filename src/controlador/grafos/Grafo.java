@@ -92,44 +92,6 @@ public abstract class Grafo {
         return sendero;
     }
     
-    public HashMap dijkstrac (Integer o, Integer d) throws Exception{
-        HashMap sendero = new HashMap();
-        if(esta_conectado()) {
-                ListaEnlazada<Integer> vertices = new ListaEnlazada<>();
-                ListaEnlazada<Double> pesos = new ListaEnlazada<>();
-                Boolean finalizar = false;
-                Integer inicial = o;
-                vertices.add(inicial);
-                while(!finalizar){
-                    ListaEnlazada<Adyacencia> adyacencias = adyacentes(inicial);
-                    Double peso = Double.MAX_VALUE;
-                    Integer T = -1;
-                    for (int i = 0; i < adyacencias.getSize() ; i++) {
-                        Adyacencia ad = adyacencias.get(i);
-                        if(!estaEnCamino(vertices, ad.getD().intValue())){
-                           Double pesoArista = ad.getPeso();
-                            
-                            if(d.intValue() == ad.getD().intValue()) {
-                                T = ad.getD();
-                                peso = pesoArista;
-                                break;
-                            } else if (pesoArista < peso){
-                                T = ad.getD();
-                                peso = pesoArista;
-                            }
-                        }
-                    }
-                    vertices.add(T);
-                    pesos.add(peso);
-                    inicial = T;
-                    if(d.intValue() == inicial.intValue()) break;
-                }
-                sendero.put("camino", vertices);
-                sendero.put("peso", pesos);
-            }else{} 
-        return sendero;
-    }
-    
     private Boolean estaEnCamino(ListaEnlazada<Integer> lista, Integer vertice) throws Exception{
         Boolean band = false;
         for (int i = 0; i < lista.getSize(); i++) {

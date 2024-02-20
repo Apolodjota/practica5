@@ -295,7 +295,7 @@ public class FrmMapa extends javax.swing.JFrame {
         cbxOrigen = new org.edisoncor.gui.comboBox.ComboBoxRect();
         cbxDestino = new org.edisoncor.gui.comboBox.ComboBoxRect();
         btnAdyacencia = new org.edisoncor.gui.button.ButtonRect();
-        btnCamino = new org.edisoncor.gui.button.ButtonAction();
+        btnDijkstra = new org.edisoncor.gui.button.ButtonAction();
         btnFloyd = new org.edisoncor.gui.button.ButtonAction();
         panelShadow2 = new org.edisoncor.gui.panel.PanelShadow();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -352,10 +352,10 @@ public class FrmMapa extends javax.swing.JFrame {
             }
         });
 
-        btnCamino.setText("Dijkstra");
-        btnCamino.addActionListener(new java.awt.event.ActionListener() {
+        btnDijkstra.setText("Dijkstra");
+        btnDijkstra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCaminoActionPerformed(evt);
+                btnDijkstraActionPerformed(evt);
             }
         });
 
@@ -386,7 +386,7 @@ public class FrmMapa extends javax.swing.JFrame {
                 .addGap(8, 8, 8)
                 .addComponent(btnAdyacencia, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(92, 92, 92)
-                .addComponent(btnCamino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnDijkstra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnFloyd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
@@ -406,7 +406,7 @@ public class FrmMapa extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdyacencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFloyd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCamino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnDijkstra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15))
         );
 
@@ -576,15 +576,15 @@ public class FrmMapa extends javax.swing.JFrame {
         cargarGrafo();
     }//GEN-LAST:event_buttonPopup2ActionPerformed
 
-    private void btnCaminoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCaminoActionPerformed
+    private void btnDijkstraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDijkstraActionPerformed
         try {
-            camino();
+            ad.getGrafoAntena().dijkstrac(cbxOrigen.getSelectedIndex());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
                             e.getMessage(), "Error",
                             JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnCaminoActionPerformed
+    }//GEN-LAST:event_btnDijkstraActionPerformed
 
     private void btnAleatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAleatorioActionPerformed
         adyacenciaAleatoria();
@@ -670,7 +670,7 @@ public class FrmMapa extends javax.swing.JFrame {
     private org.edisoncor.gui.button.ButtonRect btnAdyacencia;
     private org.edisoncor.gui.button.ButtonRect btnAleatorio;
     private org.edisoncor.gui.button.ButtonAction btnAnchura;
-    private org.edisoncor.gui.button.ButtonAction btnCamino;
+    private org.edisoncor.gui.button.ButtonAction btnDijkstra;
     private org.edisoncor.gui.button.ButtonAction btnFloyd;
     private org.edisoncor.gui.button.ButtonAction btnProfundidad;
     private org.edisoncor.gui.button.ButtonAero btnVerGrafo;
