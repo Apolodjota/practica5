@@ -116,7 +116,7 @@ public class ListaEnlazada <E> {
     public E deleteLast () throws VacioException{
         if(isEmpty()){
             throw new VacioException("Lista Vacia");
-        }else{
+                }else{
             E element =  last.getData();
             Nodo<E> aux = getNodo(getSize() - 2);
             if (aux == null){

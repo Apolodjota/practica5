@@ -31,6 +31,7 @@ public class FrmMapa extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         limpiar();
+        cargarGrafo();
         
     }
     public FrmMapa(java.awt.Frame parent,Boolean modal) {
@@ -198,12 +199,8 @@ public class FrmMapa extends javax.swing.JFrame {
             Integer posD = cbxDestino.getSelectedIndex();
             if(posO != posD){
                 //ingresar el vertice entrada y destino
-                ad.getGrafoAntena().Dijkstrac(posO, posD);
+                //ad.getGrafoAntena().Dijkstrac(posO, posD);
                 //devolver el camino mas corto
-                
-                
-                Double peso = Utilidades.distanciaEscuelas(UtilesVista.getComboAntena(cbxOrigen), UtilesVista.getComboAntena(cbxDestino));
-                ad.getGrafoAntena().insertarAristaE(ad.getAntenas().get(posO), ad.getAntenas().get(posD), peso);
                 
                 
                 System.out.println("2ra Iteracion..........\n"+ad.getAntenas().get(posO).toString());
@@ -214,7 +211,7 @@ public class FrmMapa extends javax.swing.JFrame {
                 
                 System.out.println("Origen   "+UtilesVista.getComboAntena(cbxOrigen));
                 System.out.println("Destino   "+UtilesVista.getComboAntena(cbxDestino));
-                System.out.println(peso);
+                //System.out.println(peso);
                 
                 limpiar();
             }
@@ -624,7 +621,7 @@ public class FrmMapa extends javax.swing.JFrame {
                         JOptionPane.INFORMATION_MESSAGE);
             else
                 JOptionPane.showMessageDialog(null,
-                        "Non conectados entre todos", ":(", 
+                        "No conectados entre todos", ":(", 
                         JOptionPane.ERROR_MESSAGE);
             } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
