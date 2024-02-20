@@ -31,7 +31,7 @@ public class FrmMapa extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         limpiar();
-        cargarGrafo();
+        //cargarGrafo();
         
     }
     public FrmMapa(java.awt.Frame parent,Boolean modal) {

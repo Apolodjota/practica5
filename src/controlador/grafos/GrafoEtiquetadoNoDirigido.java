@@ -4,6 +4,7 @@
  */
 package controlador.grafos;
 
+import controlador.antenas.AntenaDao;
 import controlador.listas.ListaEnlazada;
 import controlador.listas.Stack;
 import controlador.listas.exceptions.VacioException;
@@ -18,6 +19,8 @@ import vista.tablas.ModeloTablaAdyacencia;
  * @author apolo
  */
 public class GrafoEtiquetadoNoDirigido<E> extends GrafoEtiquetadoDirigido<E> {
+
+    AntenaDao a = new AntenaDao();
 
     public GrafoEtiquetadoNoDirigido(Integer nro_vertice, Class<E> clazz) {
         super(nro_vertice, clazz);
@@ -50,9 +53,10 @@ public class GrafoEtiquetadoNoDirigido<E> extends GrafoEtiquetadoDirigido<E> {
         System.out.println(m.length);
         ListaEnlazada<Integer> lista = new ListaEnlazada<>();
         lista.add(1);
+        lista.add(1);
         m[1] = true;
         while (!lista.isEmpty()) {
-            Integer actual = lista.deleteFirst();
+            Integer actual = lista.deleteLast();
             System.out.println("Vertice actual: " + actual);
             Adyacencia[] adyacentes = this.adyacentes(actual).toArray();
             for (Adyacencia ady : adyacentes) {
@@ -114,22 +118,51 @@ public class GrafoEtiquetadoNoDirigido<E> extends GrafoEtiquetadoDirigido<E> {
         }
         return true;
     }
-    public void dijkstrac(Integer og) {
-        Integer[] ultimo;
+
+    public void dijkstrac(Integer og) throws Exception {
+        Integer[] ultimo = new Integer[nro_vertices()];
         Double[] distancia = new Double[nro_vertices()];
-        Boolean[] F;
+        Boolean[] f = visitados();
         Double[][] pesos = new Double[nro_vertices()][nro_vertices()];
         for (int i = 1; i <= nro_vertices(); i++) {
             for (int j = 1; j <= nro_vertices(); j++) {
                 if (i == j) {
                     pesos[i][j] = 0.0;
                 } else {
-                    
-                    
-                    
+                    pesos[i][j] = peso_arista(i, j);
                 }
             }
         }
+        for (int i = 0; i <= nro_vertices(); i++) {
+            f[i] = true;
+            distancia[i] = pesos[og][i];
+            ultimo[i] = og;
+        }
+        f[og] = true;
+        distancia[og] = 0.0;
+
+        Double mx = 99999.9;
+        Integer minimo = 1;
+        for (int j = 1; j < nro_vertices(); j++) {
+            if (!f[j] && (distancia[j] <= mx)) {
+                mx = distancia[j];
+                minimo = j;
+            }
+        }
+        
+        for (int i = 1; i < nro_vertices(); i++) {
+            Integer v = minimo;
+            f[v] = true;
+            for (int w = 1; w < nro_vertices(); w++) {
+                if (!f[w]) {
+                    if ((distancia[v] + pesos[v][w]) < distancia[w]) {
+                        distancia[w] = distancia[v] + pesos[v][w];
+                        ultimo[w] = v;
+                    }
+                }
+            }
+        }
+        
         
     }
 
