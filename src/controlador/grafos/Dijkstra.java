@@ -4,6 +4,8 @@
  */
 package controlador.grafos;
 
+import controlador.util.Utilidades;
+
 /**
  *
  * @author Apolo
@@ -35,17 +37,19 @@ public class Dijkstra {
                     matrizPesos[i][j] = 0.0;
                 } else {
                     try {
-                        matrizPesos[i][j] = (Double) grafo.peso_arista(i, j);
+                        Double peso = grafo.peso_arista(i, j);
+                        matrizPesos[i][j] = (Double)Utilidades.redondear(peso);
                     } catch (Exception e) {
                         matrizPesos[i][j] = Double.POSITIVE_INFINITY;
                     }
+
                 }
 
             }
         }
         for (int i = 0; i < nroV; i++) {
             for (int j = 0; j < nroV; j++) {
-                System.out.print(" [" + matrizPesos[i][j] + "] ");
+                System.out.print(" [" + matrizPesos[i][j] + "] \t");
             }
             System.out.println("");
         }

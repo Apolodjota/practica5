@@ -8,6 +8,7 @@ import controlador.grafos.DibujarGrafo;
 import controlador.listas.ListaEnlazada;
 import controlador.antenas.AntenaDao;
 import controlador.grafos.Dijkstra;
+import controlador.grafos.Floyd;
 import controlador.util.Utilidades;
 import java.io.File;
 import java.util.HashMap;
@@ -22,45 +23,47 @@ public class FrmMapa extends javax.swing.JFrame {
 
     private AntenaDao ad = new AntenaDao();
     private ModeloTablaAdyacencia mtAd = new ModeloTablaAdyacencia();
+
     /**
      * Creates new form FrmMapa
      */
-    
+
     public FrmMapa() {
         initComponents();
         setLocationRelativeTo(null);
         limpiar();
         //cargarGrafo();
-        
+
     }
-    public FrmMapa(java.awt.Frame parent,Boolean modal) {
+
+    public FrmMapa(java.awt.Frame parent, Boolean modal) {
         initComponents();
         setLocationRelativeTo(null);
-        limpiar();    
+        limpiar();
     }
-    
-    private void guardarGrafo(){
+
+    private void guardarGrafo() {
         Integer i = JOptionPane.showConfirmDialog(null,
                 "Esta de acuerdo con guardar el grafo???",
-                "Pregunta", 
+                "Pregunta",
                 JOptionPane.OK_CANCEL_OPTION);
-        
-        if(i == JOptionPane.OK_OPTION){
+
+        if (i == JOptionPane.OK_OPTION) {
             try {
                 ad.guardarGrafo();
                 JOptionPane.showMessageDialog(null,
-                            "Grafo Guardado", "Niceeeee",
-                            JOptionPane.INFORMATION_MESSAGE);
+                        "Grafo Guardado", "Niceeeee",
+                        JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null,
-                            e.getMessage(), "Error",
-                            JOptionPane.ERROR_MESSAGE);
+                        e.getMessage(), "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
-        
+
     }
-    
-    private void cargarTabla(){
+
+    private void cargarTabla() {
         try {
             mtAd.setGrafo(ad.getGrafoAntena());
             mtAd.fireTableDataChanged();
@@ -68,211 +71,218 @@ public class FrmMapa extends javax.swing.JFrame {
             tblTabla.updateUI();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
-                            e.getMessage(), "Error",
-                            JOptionPane.ERROR_MESSAGE);
+                    e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }
-    
-    private void limpiar(){
+
+    private void limpiar() {
         try {
             UtilesVista.cargarComboAntena(cbxOrigen);
             UtilesVista.cargarComboAntena(cbxDestino);
             UtilesVista.cargarComboAntena(cbxOrigenAleatorio);
             cargarTabla();
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
-                            e.getMessage(), "Error",
-                            JOptionPane.ERROR_MESSAGE);
+                    e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    private void camino() throws Exception{
-        if(ad.getGrafoAntena()!= null){
+
+    private void camino() throws Exception {
+        if (ad.getGrafoAntena() != null) {
             Integer posO = cbxOrigen.getSelectedIndex() + 1;
             Integer posD = cbxDestino.getSelectedIndex() + 1;
-            System.out.println("1ra Iteracion..........\n"+cbxOrigen.getSelectedIndex());
+            System.out.println("1ra Iteracion..........\n" + cbxOrigen.getSelectedIndex());
             System.out.println(cbxDestino.getSelectedIndex());
             HashMap<String, ListaEnlazada> mapa = ad.getGrafoAntena().camino(posO, posD);
-            System.out.println("Coñazo"+ad.getGrafoAntena().camino(posO, posD));
-            if(mapa.isEmpty()){
+            System.out.println("Coñazo" + ad.getGrafoAntena().camino(posO, posD));
+            if (mapa.isEmpty()) {
                 JOptionPane.showMessageDialog(null,
-                            "No existe camino", "Error",
-                            JOptionPane.ERROR_MESSAGE);
-            }else{
+                        "No existe camino", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            } else {
                 ListaEnlazada<Integer> caminos = mapa.get("camino");
                 for (int i = 0; i <= caminos.getSize(); i++) {
                     Integer v = caminos.get(i);
                     System.out.println(ad.getGrafoAntena().toString());
                 }
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null,
-                            "Errorsote", "Error",
-                            JOptionPane.ERROR_MESSAGE);
+                    "Errorsote", "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private void adyacenciaAleatoria(){
+    private void adyacenciaAleatoria() {
         try {
             Integer posO = cbxOrigenAleatorio.getSelectedIndex();
             //poscicion de origen
-            
-            System.out.println("\n\n1ra Iteracion.........."+cbxOrigenAleatorio.getSelectedIndex());
-            
-            
+
+            System.out.println("\n\n1ra Iteracion.........." + cbxOrigenAleatorio.getSelectedIndex());
+
             ListaEnlazada<Integer> destinos = new ListaEnlazada<>();
-            
-            Integer ad1 = Utilidades.generateRandomNumber(ad.getAntenas().getSize() - 1 , posO);
-            Integer ad2 = Utilidades.generateRandomNumber(ad.getAntenas().getSize() - 1 , posO);
-            Integer ad3 = Utilidades.generateRandomNumber(ad.getAntenas().getSize() - 1 , posO);
-            
+
+            Integer ad1 = Utilidades.generateRandomNumber(ad.getAntenas().getSize() - 1, posO);
+            Integer ad2 = Utilidades.generateRandomNumber(ad.getAntenas().getSize() - 1, posO);
+            Integer ad3 = Utilidades.generateRandomNumber(ad.getAntenas().getSize() - 1, posO);
+
             destinos.add(ad1);
-            if(ad1 != ad2)destinos.add(ad2);
-            else destinos.add(ad3);
-            
-            System.out.println(ad1+"  "+ad2+"  "+ad3);
-            System.out.println("destino real :"+(ad1+1)+"  "+(ad2+1)+"  "+(ad3+1));
-            System.out.println("tamaño lista "+ destinos.getSize());
-            
+            if (ad1 != ad2) {
+                destinos.add(ad2);
+            } else {
+                destinos.add(ad3);
+            }
+
+            System.out.println(ad1 + "  " + ad2 + "  " + ad3);
+            System.out.println("destino real :" + (ad1 + 1) + "  " + (ad2 + 1) + "  " + (ad3 + 1));
+            System.out.println("tamaño lista " + destinos.getSize());
+
             for (int i = 0; i < destinos.getSize(); i++) {
                 // verificacion de que no sea ya adyacente con esa adyacencia ramdon if(ad.getGrafoAntena().adyacentes(p))
-                
+
                 Double peso = Utilidades.distanciaEscuelas(ad.getAntenas().get(posO), ad.getAntenas().get(destinos.get(i)));
-                System.out.println("ORIGEN"+ad.getAntenas().get(posO).toString());
-                System.out.println("Antena agarrada: "+ad.getAntenas().get(destinos.get(i)).toString());
-                ad.getGrafoAntena().insertarAristaE(ad.getAntenas().get(posO),ad.getAntenas().get(destinos.get(i)), peso);
-                
-                
-                
+                System.out.println("ORIGEN" + ad.getAntenas().get(posO).toString());
+                System.out.println("Antena agarrada: " + ad.getAntenas().get(destinos.get(i)).toString());
+                ad.getGrafoAntena().insertarAristaE(ad.getAntenas().get(posO), ad.getAntenas().get(destinos.get(i)), peso);
+
                 JOptionPane.showMessageDialog(null,
-                            "Adyacencia Agregada", "Adyacencia",
-                            JOptionPane.INFORMATION_MESSAGE);
+                        "Adyacencia Agregada", "Adyacencia",
+                        JOptionPane.INFORMATION_MESSAGE);
                 System.out.println(peso);
-                
+
             }
             limpiar();
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
-                            e.getMessage(), "Error",
-                            JOptionPane.ERROR_MESSAGE);
+                    e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
-    private void adyacencia(){
+
+    private void adyacencia() {
         try {
             Integer posO = cbxOrigen.getSelectedIndex();
-            System.out.println("1ra Iteracion..........\n"+cbxOrigen.getSelectedIndex());
+            System.out.println("1ra Iteracion..........\n" + cbxOrigen.getSelectedIndex());
             System.out.println(cbxDestino.getSelectedIndex());
             Integer posD = cbxDestino.getSelectedIndex();
-            if(posO != posD){
+            if (posO != posD) {
                 Double peso = Utilidades.distanciaEscuelas(UtilesVista.getComboAntena(cbxOrigen), UtilesVista.getComboAntena(cbxDestino));
                 ad.getGrafoAntena().insertarAristaE(ad.getAntenas().get(posO), ad.getAntenas().get(posD), peso);
-                System.out.println("2ra Iteracion..........\n"+
-                        ad.getAntenas().get(posO).toString());
-                
+                System.out.println("2ra Iteracion..........\n"
+                        + ad.getAntenas().get(posO).toString());
+
                 System.out.println(ad.getAntenas().get(posD).toString());
-                
+
                 JOptionPane.showMessageDialog(null,
-                            "Adyacencia Agregada", "Adyacencia",
-                            JOptionPane.INFORMATION_MESSAGE);
-                
-                System.out.println("Origen   "+ UtilesVista.getComboAntena(cbxOrigen));
-                System.out.println("Destino   "+UtilesVista.getComboAntena(cbxDestino));
+                        "Adyacencia Agregada", "Adyacencia",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+                System.out.println("Origen   " + UtilesVista.getComboAntena(cbxOrigen));
+                System.out.println("Destino   " + UtilesVista.getComboAntena(cbxDestino));
                 System.out.println(peso);
-                
+
                 limpiar();
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
-                            e.getMessage(), "Error",
-                            JOptionPane.ERROR_MESSAGE);
+                    e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
-    private void dijkstrac(){
+
+    private void dijkstrac() {
         try {
             Integer posO = cbxOrigen.getSelectedIndex();
-            System.out.println("1ra Iteracion..........\n"+cbxOrigen.getSelectedIndex());
+            System.out.println("1ra Iteracion..........\n" + cbxOrigen.getSelectedIndex());
             System.out.println(cbxDestino.getSelectedIndex());
             Integer posD = cbxDestino.getSelectedIndex();
-            if(posO != posD){
+            if (posO != posD) {
                 //ingresar el vertice entrada y destino
                 //ad.getGrafoAntena().Dijkstrac(posO, posD);
                 //devolver el camino mas corto
-                
-                
-                System.out.println("2ra Iteracion..........\n"+ad.getAntenas().get(posO).toString());
+
+                System.out.println("2ra Iteracion..........\n" + ad.getAntenas().get(posO).toString());
                 System.out.println(ad.getAntenas().get(posD).toString());
                 JOptionPane.showMessageDialog(null,
-                            "Adyacencia Agregada", "Adyacencia",
-                            JOptionPane.INFORMATION_MESSAGE);
-                
-                System.out.println("Origen   "+UtilesVista.getComboAntena(cbxOrigen));
-                System.out.println("Destino   "+UtilesVista.getComboAntena(cbxDestino));
+                        "Adyacencia Agregada", "Adyacencia",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+                System.out.println("Origen   " + UtilesVista.getComboAntena(cbxOrigen));
+                System.out.println("Destino   " + UtilesVista.getComboAntena(cbxDestino));
                 //System.out.println(peso);
-                
+
                 limpiar();
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
-                            e.getMessage(), "Error",
-                            JOptionPane.ERROR_MESSAGE);
+                    e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
-    private void cargarGrafo(){
+
+    private void cargarGrafo() {
         Integer i = JOptionPane.showConfirmDialog(null,
                 "Esta de acuerdo con cargar el grafo???",
-                "Pregunta", 
+                "Pregunta",
                 JOptionPane.OK_CANCEL_OPTION);
-        
-        if(i == JOptionPane.OK_OPTION){
+
+        if (i == JOptionPane.OK_OPTION) {
             try {
                 ad.cargarGrafo();
                 limpiar();
                 JOptionPane.showMessageDialog(null,
-                            "Grafo Cargado", "Niceeeee",
-                            JOptionPane.INFORMATION_MESSAGE);
+                        "Grafo Cargado", "Niceeeee",
+                        JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null,
-                            e.getMessage(), "Error",
-                            JOptionPane.ERROR_MESSAGE);
+                        e.getMessage(), "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
     }
-    private void mostrarMapa(){
+
+    private void mostrarMapa() {
         try {
             String dir = Utilidades.getDirProject();
             String os = Utilidades.getOs();
-            if(os.equalsIgnoreCase("Windows 11")){
+            if (os.equalsIgnoreCase("Windows 11")) {
                 UtilesVista.crearMapa(ad.getGrafoAntena());
-                Utilidades.abrirNavegadorPredeterminadoWindows(dir+File.separatorChar+"mapas"+File.separatorChar+"index.html");
-            }else
+                Utilidades.abrirNavegadorPredeterminadoWindows(dir + File.separatorChar + "mapas" + File.separatorChar + "index.html");
+            } else {
                 System.out.println("No existe sistema");
-            
+            }
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
-                            e.getMessage(), "Error",
-                            JOptionPane.ERROR_MESSAGE);
+                    e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
-    private void mostrarGrafos(){
+
+    private void mostrarGrafos() {
         try {
             String dir = Utilidades.getDirProject();
             String os = Utilidades.getOs();
             DibujarGrafo dg = new DibujarGrafo();
             dg.crearArchivo(ad.getGrafoAntena());
-            if(os.equalsIgnoreCase("Windows 11"))
-                Utilidades.abrirNavegadorPredeterminadoWindows(dir+File.separatorChar+"d3"+File.separatorChar+"grafo.html");
-            else
+            if (os.equalsIgnoreCase("Windows 11")) {
+                Utilidades.abrirNavegadorPredeterminadoWindows(dir + File.separatorChar + "d3" + File.separatorChar + "grafo.html");
+            } else {
                 System.out.println("No existe sistema");
-            
+            }
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
-                            e.getMessage(), "Error",
-                            JOptionPane.ERROR_MESSAGE);
+                    e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -315,7 +325,7 @@ public class FrmMapa extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        labelHeader1.setText("UBICACION DE LAS ESCUELAS");
+        labelHeader1.setText("UBICACION DE LAS ANTENAS");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -577,12 +587,20 @@ public class FrmMapa extends javax.swing.JFrame {
 
     private void btnDijkstraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDijkstraActionPerformed
         try {
-            Dijkstra van = new Dijkstra(ad.getGrafoAntena(), cbxOrigen.getSelectedIndex());
-            van.caminoMinimos();
+            if (ad.getGrafoAntena().recorridoAnchura()) {
+                Dijkstra van = new Dijkstra(ad.getGrafoAntena(), cbxOrigen.getSelectedIndex());
+                van.caminoMinimos();
+                van.recuperaCamino(cbxDestino.getSelectedIndex() + 1);
+            }else
+                JOptionPane.showMessageDialog(null,
+                        "No se encuentran todos unidos" ,
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
-                            e.getMessage(), "Error",
-                            JOptionPane.ERROR_MESSAGE);
+                    e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnDijkstraActionPerformed
 
@@ -591,42 +609,59 @@ public class FrmMapa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAleatorioActionPerformed
 
     private void btnFloydActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFloydActionPerformed
-        // TODO add your handling code here:
+        try {
+            if (ad.getGrafoAntena().recorridoAnchura()) {
+                Floyd magueder = new Floyd(ad.getGrafoAntena());
+                magueder.todosCaminosMinimo();
+            }else
+                JOptionPane.showMessageDialog(null,
+                        "No se encuentran todos unidos" ,
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,
+                    e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnFloydActionPerformed
 
     private void btnAnchuraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnchuraActionPerformed
         try {
-            if(ad.getGrafoAntena().recorridoAnchura())
+            if (ad.getGrafoAntena().recorridoAnchura()) {
                 JOptionPane.showMessageDialog(null,
                         "Estan conectados entre todos", ":)",
                         JOptionPane.INFORMATION_MESSAGE);
-            else
+            } else {
                 JOptionPane.showMessageDialog(null,
-                        "Non conectados entre todos", ":(", 
+                        "Non conectados entre todos", ":(",
                         JOptionPane.ERROR_MESSAGE);
-            } catch (Exception e) {
+            }
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
-                            e.getMessage(), "Error",
-                            JOptionPane.ERROR_MESSAGE);
+                    e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
-        
-        
+
+
     }//GEN-LAST:event_btnAnchuraActionPerformed
 
     private void btnProfundidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfundidadActionPerformed
         try {
-            if(ad.getGrafoAntena().recorridoProfundidad())
+            if (ad.getGrafoAntena().recorridoAnchura()) {
                 JOptionPane.showMessageDialog(null,
                         "Estan conectados entre todos", ":)",
                         JOptionPane.INFORMATION_MESSAGE);
-            else
+            } else {
                 JOptionPane.showMessageDialog(null,
-                        "No conectados entre todos", ":(", 
+                        "No conectados entre todos", ":(",
                         JOptionPane.ERROR_MESSAGE);
-            } catch (Exception e) {
+            }
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
-                            e.getMessage(), "Error",
-                            JOptionPane.ERROR_MESSAGE);
+                    e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnProfundidadActionPerformed
 

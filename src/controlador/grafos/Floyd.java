@@ -4,6 +4,8 @@
  */
 package controlador.grafos;
 
+import controlador.util.Utilidades;
+
 /**
  *
  * @author Apolo
@@ -29,7 +31,7 @@ public class Floyd {
             for (int j = 0; j < numVertices; j++) {
                 try {
                     double peso = grafo.peso_arista(i, j);
-                    matrizPesos[i][j] = (Double) peso;
+                    matrizPesos[i][j] = Utilidades.redondear(peso);
                 } catch (Exception e) {
                     matrizPesos[i][j] = Double.POSITIVE_INFINITY;
                 }
@@ -38,7 +40,7 @@ public class Floyd {
         }
         for (int i = 0; i < numVertices; i++) {
             for (int j = 0; j < numVertices; j++) {
-                System.out.print(" [" + matrizPesos[i][j] + "] ");
+                System.out.print(" [" + Utilidades.redondear(matrizPesos[i][j]) + "] ");
             }
             System.out.println("");
         }

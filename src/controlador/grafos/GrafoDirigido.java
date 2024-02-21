@@ -75,7 +75,7 @@ public class GrafoDirigido extends Grafo{
 
     @Override
     public Double peso_arista(Integer a, Integer b) throws Exception{
-        Double peso = Double.NaN;
+        Double peso = Double.POSITIVE_INFINITY;
         if(existe_arista(a, b)) {
             ListaEnlazada<Adyacencia> lista = listaAdyacente[a];
              for(int i = 0; i < lista.getSize(); i++) {
