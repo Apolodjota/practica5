@@ -7,11 +7,10 @@ package vista;
 import controlador.grafos.DibujarGrafo;
 import controlador.listas.ListaEnlazada;
 import controlador.antenas.AntenaDao;
+import controlador.grafos.Dijkstra;
 import controlador.util.Utilidades;
 import java.io.File;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import vista.tablas.ModeloTablaAdyacencia;
 
@@ -578,7 +577,8 @@ public class FrmMapa extends javax.swing.JFrame {
 
     private void btnDijkstraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDijkstraActionPerformed
         try {
-            ad.getGrafoAntena().dijkstrac(cbxOrigen.getSelectedIndex());
+            Dijkstra van = new Dijkstra(ad.getGrafoAntena(), cbxOrigen.getSelectedIndex());
+            van.caminoMinimos();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
                             e.getMessage(), "Error",
